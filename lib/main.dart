@@ -103,7 +103,7 @@ class _TimelineScreenState extends State<TimelineScreen>
           // メッセージタブのコード
           MessageScreen(),
           // プロフィールタブのコード
-          const Center(child: Text('Profile Tab')),
+          ProfileScreen(),
         ],
       ),
     );
@@ -170,6 +170,84 @@ class MessageDetailScreen extends StatelessWidget {
       ),
       body: Center(
         child: Text('Details about Message ${index + 1}'),
+      ),
+    );
+  }
+}
+
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String _name = 'Your Name';
+  String _introduction = 'Introduce yourself here';
+  String _imageUrl = 'https://via.placeholder.com/150';
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Choose an option'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                GestureDetector(
+                  child: Text('Gallery'),
+                  onTap: () {
+                    // 画像選択処理を実装
+                  },
+                ),
+                Padding(padding: EdgeInsets.all(8.0)),
+                GestureDetector(
+                  child: Text('Camera'),
+                  onTap: () {
+                    // カメラ起動処理を実装
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: () => _showDialog(),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(_imageUrl),
+              radius: 60.0,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          Text(
+            _name,
+            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8.0),
+          Text(
+            _introduction,
+            style: TextStyle(fontSize: 16.0),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 16.0),
+          ElevatedButton(
+            child: Text('Edit Profile'),
+            onPressed: () {
+              // プロフィール編集画面に遷移する処理を実装
+            },
+          ),
+        ],
       ),
     );
   }
