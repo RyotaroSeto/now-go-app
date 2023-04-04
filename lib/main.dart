@@ -66,6 +66,7 @@ class _TimelineScreenState extends State<TimelineScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
+          // ホームタブのコード
           ListView.builder(
             itemCount: 10,
             itemBuilder: (BuildContext context, int index) {
@@ -98,8 +99,10 @@ class _TimelineScreenState extends State<TimelineScreen>
               );
             },
           ),
-          const Center(child: Text('Search Tab')),
-          const Center(child: Text('Settings Tab')),
+          // メッセージタブのコード
+          MessageScreen(),
+          // プロフィールタブのコード
+          const Center(child: Text('Profile Tab')),
         ],
       ),
     );
@@ -119,6 +122,53 @@ class DetailScreen extends StatelessWidget {
       ),
       body: Center(
         child: Text('Details about User ${index + 1}'),
+      ),
+    );
+  }
+}
+
+class MessageScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 20,
+      itemBuilder: (BuildContext context, int index) {
+        return Card(
+          child: ListTile(
+            leading: const CircleAvatar(
+              backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+            ),
+            title: Text('Message ${index + 1}'),
+            subtitle:
+                Text('Some message information about message ${index + 1}'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen2(index: index),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class DetailScreen2 extends StatelessWidget {
+  final int index;
+
+  const DetailScreen2({required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Message ${index + 1}'),
+      ),
+      body: Center(
+        child: Text('Details about Message ${index + 1}'),
       ),
     );
   }
