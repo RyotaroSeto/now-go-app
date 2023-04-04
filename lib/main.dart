@@ -91,7 +91,8 @@ class _TimelineScreenState extends State<TimelineScreen>
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetailScreen(index: index),
+                        builder: (context) =>
+                            TimelineDetailScreen(index: index),
                       ),
                     );
                   },
@@ -109,10 +110,10 @@ class _TimelineScreenState extends State<TimelineScreen>
   }
 }
 
-class DetailScreen extends StatelessWidget {
+class TimelineDetailScreen extends StatelessWidget {
   final int index;
 
-  const DetailScreen({required this.index});
+  const TimelineDetailScreen({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +146,7 @@ class MessageScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailScreen2(index: index),
+                  builder: (context) => MessageDetailScreen(index: index),
                 ),
               );
             },
@@ -156,10 +157,10 @@ class MessageScreen extends StatelessWidget {
   }
 }
 
-class DetailScreen2 extends StatelessWidget {
+class MessageDetailScreen extends StatelessWidget {
   final int index;
 
-  const DetailScreen2({required this.index});
+  const MessageDetailScreen({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
