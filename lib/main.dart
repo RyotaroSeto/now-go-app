@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gokon/views/messageScreen.dart';
+import 'package:gokon/views/timelineDetailScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -108,73 +110,6 @@ class _TimelineScreenState extends State<TimelineScreen>
           // プロフィールタブのコード
           const ProfileScreen(),
         ],
-      ),
-    );
-  }
-}
-
-class TimelineDetailScreen extends StatelessWidget {
-  final int index;
-
-  const TimelineDetailScreen({super.key, required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('User ${index + 1}'),
-      ),
-      body: Center(
-        child: Text('Details about User ${index + 1}'),
-      ),
-    );
-  }
-}
-
-class MessageScreen extends StatelessWidget {
-  const MessageScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 20,
-      itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: ListTile(
-            leading: const CircleAvatar(
-              backgroundImage: NetworkImage('https://via.placeholder.com/150'),
-            ),
-            title: Text('Message ${index + 1}'),
-            subtitle:
-                Text('Some message information about message ${index + 1}'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MessageDetailScreen(index: index),
-                ),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-}
-
-class MessageDetailScreen extends StatelessWidget {
-  final int index;
-
-  const MessageDetailScreen({super.key, required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Message ${index + 1}'),
-      ),
-      body: Center(
-        child: Text('Details about Message ${index + 1}'),
       ),
     );
   }
