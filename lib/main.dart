@@ -15,13 +15,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: TimelineScreen(),
+      home: const TimelineScreen(),
     );
   }
 }
 
 class TimelineScreen extends StatefulWidget {
+  const TimelineScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _TimelineScreenState createState() => _TimelineScreenState();
 }
 
@@ -29,7 +32,7 @@ class _TimelineScreenState extends State<TimelineScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  List<bool> _isFavoriteList = List.generate(10, (_) => false);
+  final List<bool> _isFavoriteList = List.generate(10, (_) => false);
 
   void _toggleFavorite(int index) {
     setState(() {
@@ -53,7 +56,7 @@ class _TimelineScreenState extends State<TimelineScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Timeline'),
+        title: const Text('Timeline'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
@@ -101,9 +104,9 @@ class _TimelineScreenState extends State<TimelineScreen>
             },
           ),
           // メッセージタブのコード
-          MessageScreen(),
+          const MessageScreen(),
           // プロフィールタブのコード
-          ProfileScreen(),
+          const ProfileScreen(),
         ],
       ),
     );
@@ -129,6 +132,8 @@ class TimelineDetailScreen extends StatelessWidget {
 }
 
 class MessageScreen extends StatelessWidget {
+  const MessageScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -176,33 +181,36 @@ class MessageDetailScreen extends StatelessWidget {
 }
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String _name = 'Your Name';
-  String _introduction = 'Introduce yourself here';
-  String _imageUrl = 'https://via.placeholder.com/150';
+  final String _name = 'Your Name';
+  final String _introduction = 'Introduce yourself here';
+  final String _imageUrl = 'https://via.placeholder.com/150';
 
   void _showDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Choose an option'),
+          title: const Text('Choose an option'),
           content: SingleChildScrollView(
             child: ListBody(
               children: [
                 GestureDetector(
-                  child: Text('Gallery'),
+                  child: const Text('Gallery'),
                   onTap: () {
                     // 画像選択処理を実装
                   },
                 ),
-                Padding(padding: EdgeInsets.all(8.0)),
+                const Padding(padding: EdgeInsets.all(8.0)),
                 GestureDetector(
-                  child: Text('Camera'),
+                  child: const Text('Camera'),
                   onTap: () {
                     // カメラ起動処理を実装
                   },
@@ -229,18 +237,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               radius: 60.0,
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Text(
             _name,
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Text(
             _introduction,
-            style: TextStyle(fontSize: 16.0),
+            style: const TextStyle(fontSize: 16.0),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           ElevatedButton(
             child: Text('Edit Profile'),
             onPressed: () {
