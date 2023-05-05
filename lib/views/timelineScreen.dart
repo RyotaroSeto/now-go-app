@@ -38,60 +38,62 @@ class _TimelineScreenState extends State<TimelineScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Timeline'),
-        bottom: TabBar(
+        body: TabBarView(
           controller: _tabController,
-          tabs: const [
-            Tab(icon: Icon(Icons.home)),
-            Tab(icon: Icon(Icons.message)),
-            Tab(icon: Icon(Icons.person)),
+          children: [
+            // ホームタブのコード
+            ListView.builder(
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  child: ListTile(
+                    leading: const CircleAvatar(
+                      backgroundImage:
+                          NetworkImage('https://via.placeholder.com/150'),
+                    ),
+                    title: Text('User ${index + 1}'),
+                    subtitle: Text('Some information about user ${index + 1}'),
+                    trailing: IconButton(
+                      icon: Icon(
+                        _isFavoriteList[index]
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: _isFavoriteList[index] ? Colors.red : null,
+                      ),
+                      onPressed: () => _toggleFavorite(index),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              TimelineDetailScreen(index: index),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+            // メッセージタブのコード
+            const MessageScreen(),
+            // プロフィールタブのコード
+            const ProfileScreen(),
           ],
         ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          // ホームタブのコード
-          ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                child: ListTile(
-                  leading: const CircleAvatar(
-                    backgroundImage:
-                        NetworkImage('https://via.placeholder.com/150'),
-                  ),
-                  title: Text('User ${index + 1}'),
-                  subtitle: Text('Some information about user ${index + 1}'),
-                  trailing: IconButton(
-                    icon: Icon(
-                      _isFavoriteList[index]
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: _isFavoriteList[index] ? Colors.red : null,
-                    ),
-                    onPressed: () => _toggleFavorite(index),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            TimelineDetailScreen(index: index),
-                      ),
-                    );
-                  },
-                ),
-              );
-            },
-          ),
-          // メッセージタブのコード
-          const MessageScreen(),
-          // プロフィールタブのコード
-          const ProfileScreen(),
-        ],
-      ),
-    );
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
+            BottomNavigationBarItem(icon: Icon(Icons.message), label: 'メッセージ'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'アカウント'),
+          ],
+          type: BottomNavigationBarType.fixed,
+          onTap: (int index) {
+            setState(() {
+              _tabController.index = index;
+            });
+          },
+          currentIndex: _tabController.index,
+        ));
   }
 }
