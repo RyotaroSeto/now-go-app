@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Flutter How to
 1. 可能なエミュレータ確認 `flutter emulators`
-2. iOSエミュレータ起動 `flutter emulators --create apple_ios_simulator`
+2. iOSエミュレータ起動 `flutter emulators --launch apple_ios_simulator`
 3. 起動 `flutter run`
 4. ホットリロード `r`
 5. ブラウザでDevToolsを起動 `v`
