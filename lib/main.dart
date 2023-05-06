@@ -6,6 +6,12 @@ import 'package:gokon/views/menuScreen.dart';
 import 'package:gokon/views/loginScreen.dart';
 import 'package:gokon/views/signupScreen.dart';
 import 'package:gokon/views/myProfileScreen.dart';
+// import 'package:gokon/views/approachedScreen.dart';
+// import 'package:gokon/views/approachingScreen.dart';
+import 'package:gokon/views/matchingScreen.dart';
+import 'package:gokon/views/messageScreen.dart';
+import 'package:gokon/views/profileDetailScreen.dart';
+import 'package:gokon/views/profilesScreen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -33,6 +39,12 @@ class MyApp extends StatelessWidget {
         '/login': (BuildContext context) => const LoginScreen(),
         '/signup': (BuildContext context) => const SignupScreen(),
         '/my-profile': (BuildContext context) => const MyProfileScreen(),
+        '/looking': (BuildContext context) => ProfilesScreen(),
+        // '/favorite': (BuildContext context) => ApproachingScreen(),
+        // '/chance': (BuildContext context) => ApproachedScreen(),
+        '/matching': (BuildContext context) => MatchingScreen(),
+        '/message': (BuildContext context) => MessageScreen(),
+        '/profile-detail': (BuildContext context) => ProfileDetailScreen(),
       },
     );
   }
