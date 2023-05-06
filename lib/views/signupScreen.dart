@@ -45,7 +45,6 @@ class SignupScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: ElevatedButton(
-                    child: const Text('新規ユーザー作成'),
                     style: ElevatedButton.styleFrom(
                       fixedSize:
                           Size(MediaQuery.of(context).size.width * 0.95, 32),
@@ -67,6 +66,7 @@ class SignupScreen extends StatelessWidget {
                         }
                       }).catchError((error) => print(error));
                     },
+                    child: const Text('新規ユーザー作成'),
                   ),
                 )
               ],

@@ -89,30 +89,28 @@ class ProfileProvider with ChangeNotifier {
   /// 画像ピックアップ
   Future pickTopImage() async {
     _isSuccess = false;
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     try {
-      final XFile? image = await _picker.pickImage(
-          source: ImageSource.gallery, imageQuality: 25);
+      final XFile? image =
+          await picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
 
       if (image != null) {
-        final _imageDecode = decodeImage(File(image.path).readAsBytesSync());
-        if (_imageDecode != null) {
+        final imageDecode = decodeImage(File(image.path).readAsBytesSync());
+        if (imageDecode != null) {
           var _imageResize;
           const int _imageLongSide = 720;
-          if (_imageDecode.width > _imageDecode.height) {
-            if (_imageDecode.width > _imageLongSide) {
-              _imageResize = copyResize(_imageDecode,
+          if (imageDecode.width > imageDecode.height) {
+            if (imageDecode.width > _imageLongSide) {
+              _imageResize = copyResize(imageDecode,
                   width: _imageLongSide,
-                  height: _imageLongSide *
-                      _imageDecode.height ~/
-                      _imageDecode.width);
+                  height:
+                      _imageLongSide * imageDecode.height ~/ imageDecode.width);
             }
           } else {
-            if (_imageDecode.height > _imageLongSide) {
-              _imageResize = copyResize(_imageDecode,
-                  width: _imageLongSide *
-                      _imageDecode.width ~/
-                      _imageDecode.height,
+            if (imageDecode.height > _imageLongSide) {
+              _imageResize = copyResize(imageDecode,
+                  width:
+                      _imageLongSide * imageDecode.width ~/ imageDecode.height,
                   height: _imageLongSide);
             }
           }

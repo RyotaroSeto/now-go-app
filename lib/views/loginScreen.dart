@@ -47,7 +47,6 @@ class LoginScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: ElevatedButton(
-                    child: const Text('ログイン'),
                     style: ElevatedButton.styleFrom(
                       fixedSize:
                           Size(MediaQuery.of(context).size.width * 0.95, 32),
@@ -86,6 +85,7 @@ class LoginScreen extends StatelessWidget {
                         }
                       }).catchError((error) => print(error));
                     },
+                    child: const Text('ログイン'),
                   ),
                 )
               ],

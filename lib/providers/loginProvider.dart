@@ -108,12 +108,13 @@ class LoginProvider with ChangeNotifier {
       dio.options.baseUrl = _uriHost.toString();
       dio.options.contentType = 'application/json';
 
-      final response = await dio.post('/api/users/create/', data: {
-        'email': email,
-        'password': password,
-        'username': '',
-      });
-      _userModel.id = response.data['id'];
+      // TODO:API接続
+      // final response = await dio.post('/api/users/create/', data: {
+      //   'email': email,
+      //   'password': password,
+      //   'username': '',
+      // });
+      // _userModel.id = response.data['id'];
       message = '新規ユーザーの仮登録が成功しました。本登録にはユーザーのアクティベーションを行って下さい';
       _isSuccess = true;
     } catch (error) {

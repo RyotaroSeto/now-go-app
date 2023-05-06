@@ -18,7 +18,7 @@ class MyProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Flutter Web の場合 dotenv.get('BACKEND_URL_HOST_CASE_FLUTTER_WEB')
-    final Uri _uriHost = Uri.parse(dotenv.get('BACKEND_URL_HOST'));
+    final Uri uriHost = Uri.parse(dotenv.get('BACKEND_URL_HOST'));
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +38,7 @@ class MyProfileScreen extends StatelessWidget {
                           ? Image.file(profileProvider.uploadTopImage!)
                           : profileProvider.myProfile.topImage != null
                               ? Image.network(
-                                  '${profileProvider.myProfile.topImage?.replaceFirst(dotenv.get('STORAGE_URL_HOST'), _uriHost.toString())}',
+                                  '${profileProvider.myProfile.topImage?.replaceFirst(dotenv.get('STORAGE_URL_HOST'), uriHost.toString())}',
                                   width: 100,
                                   fit: BoxFit.fill,
                                   errorBuilder: (context, error, stackTrace) {
