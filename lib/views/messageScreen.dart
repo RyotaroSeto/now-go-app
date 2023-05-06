@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gokon/providers/profileProvider.dart';
-import 'package:gokon/widgets/drawerWidget.dart';
-import 'package:gokon/widgets/messageListWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:gokon/utils/showSnackBar.dart';
 import 'package:gokon/widgets/bottomNavBarWidget.dart';
+import 'package:gokon/widgets/drawerWidget.dart';
+import 'package:gokon/widgets/messageListWidget.dart';
 
 class MessageScreen extends StatelessWidget {
   const MessageScreen({Key? key}) : super(key: key);
