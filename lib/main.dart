@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MenuScreen(),
+      home: const MenuScreen(),
       routes: <String, WidgetBuilder>{
         '/menuScreen': (BuildContext context) => const MenuScreen(),
         '/loginScreen': (BuildContext context) => const LoginScreen(),
