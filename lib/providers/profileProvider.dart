@@ -7,9 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import '../models/matchingModel.dart';
-import '../models/messageModel.dart';
-import '../models/profileModel.dart';
+import 'package:gokon/models/matchingModel.dart';
+import 'package:gokon/models/messageModel.dart';
+import 'package:gokon/models/profileModel.dart';
 
 class ProfileProvider with ChangeNotifier {
   final Uri _uriHost = Uri.parse(dotenv.get('BACKEND_URL_HOST'));
@@ -63,20 +63,21 @@ class ProfileProvider with ChangeNotifier {
   String newMessage = '';
 
   /// 自己プロフィール取得
+  // TODO:自己プロフィール取得実装
   Future fetchMyProfile(String userId) async {
     _isSuccess = false;
     try {
       Dio dio = Dio();
       List<Cookie> cookieList = await _prepareDio(dio);
-      final Response<dynamic> profile = await dio.get(
-        '/api/users/profile/$userId',
-        options: Options(
-          headers: {
-            'Authorization': 'JWT ${cookieList.first.value}',
-          },
-        ),
-      );
-      myProfile = _inputProfileModel(profile.data!);
+      // final Response<dynamic> profile = await dio.get(
+      //   '/api/users/profile/$userId',
+      //   options: Options(
+      //     headers: {
+      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //     },
+      //   ),
+      // );
+      // myProfile = _inputProfileModel(profile.data!);
       _isSuccess = true;
     } catch (error) {
       print(error);
@@ -162,16 +163,17 @@ class ProfileProvider with ChangeNotifier {
         "stock_favorite": myProfile.stockFavorite
       });
 
-      final Response profile = await dio.post(
-        '/api/profiles/',
-        options: Options(
-          headers: {
-            'Authorization': 'JWT ${cookieList.first.value}',
-          },
-        ),
-        data: formData,
-      );
-      myProfile = _inputProfileModel(profile.data!);
+      // TODO:プロフィール作成実装
+      // final Response profile = await dio.post(
+      //   '/api/profiles/',
+      //   options: Options(
+      //     headers: {
+      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //     },
+      //   ),
+      //   data: formData,
+      // );
+      // myProfile = _inputProfileModel(profile.data!);
       _isSuccess = true;
     } catch (error) {
       print(error);
@@ -207,16 +209,17 @@ class ProfileProvider with ChangeNotifier {
         "introduction": myProfile.introduction,
       });
 
-      final Response profile = await dio.patch(
-        '/api/users/profile/$userId/',
-        options: Options(
-          headers: {
-            'Authorization': 'JWT ${cookieList.first.value}',
-          },
-        ),
-        data: formData,
-      );
-      myProfile = _inputProfileModel(profile.data!);
+      // TODO:プロフィール更新実装
+      // final Response profile = await dio.patch(
+      //   '/api/users/profile/$userId/',
+      //   options: Options(
+      //     headers: {
+      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //     },
+      //   ),
+      //   data: formData,
+      // );
+      // myProfile = _inputProfileModel(profile.data!);
       _isSuccess = true;
     } catch (error) {
       print(error);
@@ -359,53 +362,56 @@ class ProfileProvider with ChangeNotifier {
   }
 
   /// 【プライベート】送ったメッセージの内容を全件取得する
+  // TODO:メッセージ取得実装
   Future _fetchSendMessageList() async {
     Dio dio = Dio();
     List<Cookie> cookieList = await _prepareDio(dio);
-    final Response<dynamic> message = await dio.get(
-      '/api/dm-message/',
-      options: Options(
-        headers: {
-          'Authorization': 'JWT ${cookieList.first.value}',
-        },
-      ),
-    );
-    _sendMessageList = _inputMessageModelList(message.data!);
+    // final Response<dynamic> message = await dio.get(
+    //   '/api/dm-message/',
+    //   options: Options(
+    //     headers: {
+    //       'Authorization': 'JWT ${cookieList.first.value}',
+    //     },
+    //   ),
+    // );
+    // _sendMessageList = _inputMessageModelList(message.data!);
   }
 
   /// 【プライベート】受け取ったメッセージの内容を全件取得する
+  // TODO:メッセージ内容全件取得
   Future _fetchReceiveMessageList() async {
     Dio dio = Dio();
     List<Cookie> cookieList = await _prepareDio(dio);
-    final Response<dynamic> message = await dio.get(
-      '/api/dm-inbox/',
-      options: Options(
-        headers: {
-          'Authorization': 'JWT ${cookieList.first.value}',
-        },
-      ),
-    );
-    _receiveMessageList = _inputMessageModelList(message.data!);
+    // final Response<dynamic> message = await dio.get(
+    //   '/api/dm-inbox/',
+    //   options: Options(
+    //     headers: {
+    //       'Authorization': 'JWT ${cookieList.first.value}',
+    //     },
+    //   ),
+    // );
+    // _receiveMessageList = _inputMessageModelList(message.data!);
   }
 
   /// 指定したユーザーに新規メッセージを送信する
+  // TODO:新規メッセージを送信
   Future createMessage() async {
     _isSuccess = false;
     try {
       Dio dio = Dio();
       List<Cookie> cookieList = await _prepareDio(dio);
-      await dio.post(
-        '/api/dm-message/',
-        options: Options(
-          headers: {
-            'Authorization': 'JWT ${cookieList.first.value}',
-          },
-        ),
-        data: {
-          "receiver": profileDetail!.user,
-          "message": newMessage,
-        },
-      );
+      // await dio.post(
+      //   '/api/dm-message/',
+      //   options: Options(
+      //     headers: {
+      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //     },
+      //   ),
+      //   data: {
+      //     "receiver": profileDetail!.user,
+      //     "message": newMessage,
+      //   },
+      // );
       newMessage = '';
       await getMessageList();
       _isSuccess = true;
@@ -418,21 +424,22 @@ class ProfileProvider with ChangeNotifier {
   }
 
   /// 【プライベート】プロフィール全件取得
+  // TODO:プロフィール全件取得
   Future _fetchProfileAllList() async {
     _isSuccess = false;
     profileList.clear();
     try {
       Dio dio = Dio();
       List<Cookie> cookieList = await _prepareDio(dio);
-      final Response profiles = await dio.get(
-        '/api/profiles',
-        options: Options(
-          headers: {
-            'Authorization': 'JWT ${cookieList.first.value}',
-          },
-        ),
-      );
-      profileList = _inputProfileModelList(profiles.data!);
+      // final Response profiles = await dio.get(
+      //   '/api/profiles',
+      //   options: Options(
+      //     headers: {
+      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //     },
+      //   ),
+      // );
+      // profileList = _inputProfileModelList(profiles.data!);
       _isSuccess = true;
     } catch (error) {
       print(error);
@@ -443,20 +450,21 @@ class ProfileProvider with ChangeNotifier {
   }
 
   /// 【プライベート】いいねしているユーザー・いいねされているユーザー・マッチングしているユーザーのそれぞれのマッチングリストを取得する
+  // TODO:マッチングリスト取得
   Future _fetchMatchingList() async {
     _isSuccess = false;
     try {
       Dio dio = Dio();
       List<Cookie> cookieList = await _prepareDio(dio);
-      final Response matchingList = await dio.get(
-        '/api/favorite/',
-        options: Options(
-          headers: {
-            'Authorization': 'JWT ${cookieList.first.value}',
-          },
-        ),
-      );
-      _matchingList = _inputMatchingModelList(matchingList.data!);
+      // final Response matchingList = await dio.get(
+      //   '/api/favorite/',
+      //   options: Options(
+      //     headers: {
+      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //     },
+      //   ),
+      // );
+      // _matchingList = _inputMatchingModelList(matchingList.data!);
       _approachingList = _matchingList
           .where((matching) => matching.approaching == myProfile.user)
           .toList();
@@ -481,22 +489,23 @@ class ProfileProvider with ChangeNotifier {
   }
 
   /// 【プライベート】マッチングデータ新規作成
+  // TODO:【プライベート】マッチングデータ新規作成取得
   Future _createFavorite(
       {required String approached, required bool approved}) async {
     Dio dio = Dio();
-    List<Cookie> cookieList = await _prepareDio(dio);
-    return await dio.post(
-      '/api/favorite/',
-      options: Options(
-        headers: {
-          'Authorization': 'JWT ${cookieList.first.value}',
-        },
-      ),
-      data: {
-        "approached": approached,
-        "approved": approved,
-      },
-    );
+    // List<Cookie> cookieList = await _prepareDio(dio);
+    // return await dio.post(
+    //   '/api/favorite/',
+    //   options: Options(
+    //     headers: {
+    //       'Authorization': 'JWT ${cookieList.first.value}',
+    //     },
+    //   ),
+    //   data: {
+    //     "approached": approached,
+    //     "approved": approved,
+    //   },
+    // );
   }
 
   /// 【プライベート】マッチングデータ承認フィールド更新
