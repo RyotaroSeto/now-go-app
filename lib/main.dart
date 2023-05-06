@@ -5,6 +5,7 @@ import 'package:gokon/providers/profileProvider.dart';
 import 'package:gokon/views/menuScreen.dart';
 import 'package:gokon/views/loginScreen.dart';
 import 'package:gokon/views/signupScreen.dart';
+import 'package:gokon/views/myProfileScreen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -28,10 +29,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const MenuScreen(),
       routes: <String, WidgetBuilder>{
-        '/menuScreen': (BuildContext context) => const MenuScreen(),
-        '/loginScreen': (BuildContext context) => const LoginScreen(),
-        '/signupScreen': (BuildContext context) => const SignupScreen(),
+        '/menu': (BuildContext context) => const MenuScreen(),
+        '/login': (BuildContext context) => const LoginScreen(),
         '/signup': (BuildContext context) => const SignupScreen(),
+        '/my-profile': (BuildContext context) => const MyProfileScreen(),
       },
     );
   }

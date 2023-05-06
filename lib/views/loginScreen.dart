@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:gokon/providers/loginProvider.dart';
 import 'package:gokon/providers/profileProvider.dart';
+import 'package:gokon/views/myProfileScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -64,22 +65,22 @@ class LoginScreen extends StatelessWidget {
                               .then((isSuccess) {
                             if (isSuccess) {
                               print('プロフィール作成済みユーザーです');
-                              // Navigator.pushAndRemoveUntil(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) =>
-                              //           const MyProfileScreen()),
-                              //   (route) => false,
-                              // );
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyProfileScreen()),
+                                (route) => false,
+                              );
                             } else {
                               print('プロフィール未作成ユーザーです');
-                              // Navigator.pushAndRemoveUntil(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) =>
-                              //           const MyProfileScreen()),
-                              //   (route) => false,
-                              // );
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyProfileScreen()),
+                                (route) => false,
+                              );
                             }
                           });
                         }

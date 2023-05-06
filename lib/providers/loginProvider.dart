@@ -56,26 +56,29 @@ class LoginProvider with ChangeNotifier {
           PersistCookieJar(storage: FileStorage(appDocPath + "/.cookies/"));
       dio.interceptors.add(CookieManager(cookieJar));
 
-      final responseJwt = await dio.post('/authen/jwt/create', data: {
-        'email': email,
-        'password': password,
-      });
-      cookieList = [
-        ...cookieList,
-        Cookie('access_token', responseJwt.data['access'])
-      ];
-      await cookieJar.saveFromResponse(_uriHost, cookieList);
+      // final responseJwt = await dio.post('/authen/jwt/create', data: {
+      //   'email': email,
+      //   'password': password,
+      // });
+      // cookieList = [
+      //   ...cookieList,
+      //   Cookie('access_token', responseJwt.data['access'])
+      // ];
+      // await cookieJar.saveFromResponse(_uriHost, cookieList);
 
-      final responseUser = await dio.get(
-        '/authen/users/me',
-        options: Options(
-          headers: {
-            'Authorization': 'JWT ${cookieList.first.value}',
-          },
-        ),
-      );
-      _userModel.id = responseUser.data['id'];
-      _userModel.email = responseUser.data['email'];
+      // final responseUser = await dio.get(
+      //   '/authen/users/me',
+      //   options: Options(
+      //     headers: {
+      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //     },
+      //   ),
+      // );
+      _userModel.id = "test";
+      _userModel.email = "test";
+      // TODO:ログインAPI接続
+      // _userModel.id = responseUser.data['id'];
+      // _userModel.email = responseUser.data['email'];
 
       _isSuccess = true;
     } catch (error) {
