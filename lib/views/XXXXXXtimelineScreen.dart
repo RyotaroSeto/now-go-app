@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gokon/views/messageScreen.dart';
-import 'package:gokon/views/timelineDetailScreen.dart';
+import 'package:gokon/views/XXXXXXtimelineDetailScreen.dart';
 import 'package:gokon/views/profileScreen.dart';
 
 class TimelineScreen extends StatefulWidget {
