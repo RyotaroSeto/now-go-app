@@ -75,9 +75,7 @@ class _TimelineScreenState extends State<TimelineScreen>
                 );
               },
             ),
-            // メッセージタブのコード
             const MessageScreen(),
-            // プロフィールタブのコード
             const ProfileScreen(),
           ],
         ),
