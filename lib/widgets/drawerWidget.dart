@@ -15,12 +15,12 @@ class DrawerWidget extends StatelessWidget {
       return ListView(
         children: [
           const DrawerHeader(
-            child: Text(
-              'ようこそ俺の嫁探しへ',
-              style: TextStyle(color: Colors.white),
-            ),
             decoration: BoxDecoration(
               color: Colors.blue,
+            ),
+            child: Text(
+              '今すぐお出かけ相手を探そう',
+              style: TextStyle(color: Colors.white),
             ),
           ),
           ListTile(
