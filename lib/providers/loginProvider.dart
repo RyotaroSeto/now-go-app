@@ -11,16 +11,11 @@ class LoginProvider with ChangeNotifier {
   bool _isSuccess = false;
   String message = '';
 
+  String username = '';
   String email = '';
   String password = '';
   bool hidePassword = true;
   final UserModel _userModel = UserModel();
-
-  /*
-  * dotenv.get('BACKEND_URL_HOST') http://10.0.2.2:8080 は dotenv.get('BACKEND_URL_HOST_CASE_FLUTTER_WEB') http://127.0.0.1:8000/ のエイリアス
-  * Mobile（エミュレータ）では 10.0.2.2:8080 ホストを利用する
-  * Flutter Web の場合は 127.0.0.1:8080 ホストを利用する
-  */
   final Uri _uriHost = Uri.parse(dotenv.get('BACKEND_URL_HOST'));
 
   String getUserId() {
@@ -56,15 +51,15 @@ class LoginProvider with ChangeNotifier {
           PersistCookieJar(storage: FileStorage(appDocPath + "/.cookies/"));
       dio.interceptors.add(CookieManager(cookieJar));
 
-      // final responseJwt = await dio.post('/authen/jwt/create', data: {
-      //   'email': email,
-      //   'password': password,
-      // });
-      // cookieList = [
-      //   ...cookieList,
-      //   Cookie('access_token', responseJwt.data['access'])
-      // ];
-      // await cookieJar.saveFromResponse(_uriHost, cookieList);
+      final responseJwt = await dio.post('/api/v1/session/login', data: {
+        'email': email,
+        'password': password,
+      });
+      cookieList = [
+        ...cookieList,
+        Cookie('access_token', responseJwt.data['access'])
+      ];
+      await cookieJar.saveFromResponse(_uriHost, cookieList);
 
       // final responseUser = await dio.get(
       //   '/authen/users/me',
@@ -74,9 +69,8 @@ class LoginProvider with ChangeNotifier {
       //     },
       //   ),
       // );
-      _userModel.id = "test";
+      _userModel.id = "1";
       _userModel.email = "test";
-      // TODO:ログインAPI接続
       // _userModel.id = responseUser.data['id'];
       // _userModel.email = responseUser.data['email'];
 
@@ -108,18 +102,18 @@ class LoginProvider with ChangeNotifier {
       dio.options.baseUrl = _uriHost.toString();
       dio.options.contentType = 'application/json';
 
-      // TODO:API接続
-      // final response = await dio.post('/api/v1/session/login', data: {
-      //   'email': email,
-      //   'password': password,
-      //   'username': '',
-      // });
-      // _userModel.id = response.data['id'];
-      message = '新規ユーザーの仮登録が成功しました。本登録にはユーザーのアクティベーションを行って下さい';
+      final response = await dio.post('/api/v1/users/', data: {
+        'user_name': username,
+        'email': email,
+        'password': password,
+      });
+      _userModel.id = response.data['id'];
+      message = '新規ユーザーの仮登録が成功しました。本登録を行うためログインしてください。';
       _isSuccess = true;
     } catch (error) {
-      message = '新規ユーザー登録処理が失敗しました。同じEmailは使用できません';
+      // TODO:バックエンドのエラーメッセージを出力する
       print(error);
+      message = '新規ユーザー登録処理が失敗しました。同じEmailは使用できません';
       _isSuccess = false;
     }
     notifyListeners();

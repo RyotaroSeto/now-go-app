@@ -21,6 +21,17 @@ class SignupScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextFormField(
+                  onChanged: (value) => loginProvider.username = value,
+                  decoration: const InputDecoration(
+                    labelText: 'username',
+                  ),
+                  maxLength: 50,
+                ),
+                Text(
+                  loginProvider.message,
+                  style: const TextStyle(color: Colors.red),
+                ),
+                TextFormField(
                   onChanged: (value) => loginProvider.email = value,
                   decoration: const InputDecoration(
                     labelText: 'email',
