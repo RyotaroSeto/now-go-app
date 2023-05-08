@@ -32,7 +32,7 @@ class ProfileDetailScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      profileProvider.profileDetail!.nickname,
+                      profileProvider.profileDetail!.name,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16),
                     ),
@@ -73,7 +73,7 @@ class ProfileDetailScreen extends StatelessWidget {
                         '${profileProvider.profileDetail!.age.toString()}歳',
                       ),
                       Text(
-                        sexPicker[profileProvider.profileDetail!.sex] ?? '',
+                        sexPicker[profileProvider.profileDetail!.gender] ?? '',
                       ),
                       Text(
                         locationPicker[
@@ -147,12 +147,6 @@ class ProfileDetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'お仕事 ${profileProvider.profileDetail!.work ?? ''}',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '${profileProvider.profileDetail!.revenue ?? ''}万円',
                     ),
                   ),
                   Padding(

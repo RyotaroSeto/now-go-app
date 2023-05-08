@@ -22,11 +22,11 @@ class MessageListWidget extends StatelessWidget {
         itemCount: _messages.length,
         itemBuilder: (BuildContext context, int index) {
           String imageUrl = profileProvider.myProfile.topImage ?? '';
-          String sender = profileProvider.myProfile.nickname;
+          String sender = profileProvider.myProfile.name;
           String createdAt = _messages[index].createdAt ?? '';
           if (_messages[index].sender == profileProvider.profileDetail!.user) {
             imageUrl = profileProvider.profileDetail!.topImage ?? '';
-            sender = profileProvider.profileDetail!.nickname;
+            sender = profileProvider.profileDetail!.name;
           }
           if (imageUrl != '') {
             imageUrl.replaceFirst(

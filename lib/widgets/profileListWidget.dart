@@ -49,8 +49,7 @@ class ProfileListWidget extends StatelessWidget {
                     : const SizedBox(),
               ],
             ),
-            title:
-                Text('${_profiles[index].nickname} ${_profiles[index].age}歳'),
+            title: Text('${_profiles[index].name} ${_profiles[index].age}歳'),
             subtitle: Text(_profiles[index].tweet ?? ''),
             trailing: Icon(
               profileProvider.checkSendFavorite(_profiles[index].user ?? '')

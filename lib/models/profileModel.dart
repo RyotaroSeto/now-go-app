@@ -3,15 +3,14 @@ class ProfileModel {
   late bool isSpecial = false;
   late bool isKyc = false;
   late String? topImage = '';
-  late String nickname = '';
+  late String name = '';
   late String? createdAt = '';
   late String? updatedAt = '';
   late int age = 0;
-  late String sex = '';
+  late String gender = '';
   late int? height = 0;
   late String? location = '';
   late String? work = '';
-  late int? revenue = 0;
   late String? graduation = '';
   late String? hobby = '';
   late String? passion = '';
@@ -27,15 +26,14 @@ class ProfileModel {
     required this.isSpecial,
     required this.isKyc,
     this.topImage,
-    required this.nickname,
+    required this.name,
     this.createdAt,
     this.updatedAt,
     required this.age,
-    required this.sex,
+    required this.gender,
     this.height,
     this.location,
     this.work,
-    this.revenue,
     this.graduation,
     this.hobby,
     this.passion,

@@ -22,16 +22,15 @@ class ProfileProvider with ChangeNotifier {
     user: null,
     isSpecial: false,
     isKyc: false,
-    nickname: '',
+    name: '',
     topImage: null,
     createdAt: null,
     updatedAt: null,
     age: 0,
-    sex: '',
+    gender: '',
     height: null,
     location: null,
     work: null,
-    revenue: 0,
     graduation: null,
     hobby: null,
     passion: null,
@@ -69,15 +68,17 @@ class ProfileProvider with ChangeNotifier {
     try {
       Dio dio = Dio();
       List<Cookie> cookieList = await _prepareDio(dio);
-      // final Response<dynamic> profile = await dio.get(
-      //   '/api/users/profile/$userId',
-      //   options: Options(
-      //     headers: {
-      //       'Authorization': 'JWT ${cookieList.first.value}',
-      //     },
-      //   ),
-      // );
-      // myProfile = _inputProfileModel(profile.data!);
+      print('bearer ${cookieList.first.value}');
+      final Response<dynamic> profile = await dio.get(
+        '/api/v1/users?id=$userId',
+        options: Options(
+          headers: {
+            'Authorization': 'bearer ${cookieList.first.value}',
+          },
+        ),
+      );
+      print(profile);
+      myProfile = _inputProfileModel(profile.data!);
       _isSuccess = true;
     } catch (error) {
       print(error);
@@ -146,13 +147,12 @@ class ProfileProvider with ChangeNotifier {
                 filename: uploadTopImage!.path.split('/').last,
               )
             : myProfile.topImage,
-        "nickname": myProfile.nickname,
+        "name": myProfile.name,
         "age": myProfile.age,
-        "sex": myProfile.sex,
+        "gender": myProfile.gender,
         "height": myProfile.height,
         "location": myProfile.location,
         "work": myProfile.work,
-        "revenue": myProfile.revenue,
         "graduation": myProfile.graduation,
         "hobby": myProfile.hobby,
         "passion": myProfile.passion,
@@ -197,11 +197,10 @@ class ProfileProvider with ChangeNotifier {
                 filename: uploadTopImage!.path.split('/').last,
               )
             : myProfile.topImage,
-        "nickname": myProfile.nickname,
+        "name": myProfile.name,
         "height": myProfile.height,
         "location": myProfile.location,
         "work": myProfile.work,
-        "revenue": myProfile.revenue,
         "graduation": myProfile.graduation,
         "hobby": myProfile.hobby,
         "passion": myProfile.passion,
@@ -530,15 +529,14 @@ class ProfileProvider with ChangeNotifier {
       isSpecial: profile!['is_special'],
       isKyc: profile!['is_kyc'],
       topImage: profile!['top_image'],
-      nickname: profile!['nickname'],
+      name: profile!['name'],
       createdAt: profile!['created_at'],
       updatedAt: profile!['updated_at'],
       age: profile!['age'],
-      sex: profile!['sex'],
+      gender: profile!['gender'],
       height: profile!['height'],
       location: profile!['location'],
       work: profile!['work'],
-      revenue: profile!['revenue'],
       graduation: profile!['graduation'],
       hobby: profile!['hobby'],
       passion: profile!['passion'],

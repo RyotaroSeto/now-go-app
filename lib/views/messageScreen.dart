@@ -15,7 +15,7 @@ class MessageScreen extends StatelessWidget {
       builder: (context, profileProvider, _) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('${profileProvider.profileDetail!.nickname}とのメッセージ'),
+            title: Text('${profileProvider.profileDetail!.name}とのメッセージ'),
           ),
           body: Column(
             children: [

@@ -69,11 +69,11 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   TextFormField(
                     onChanged: (value) =>
-                        profileProvider.myProfile.nickname = value,
+                        profileProvider.myProfile.name = value,
                     decoration: const InputDecoration(
-                        labelText: 'ニックネーム', hintText: 'このフィールドは必須です'),
+                        labelText: 'なまえ', hintText: 'このフィールドは必須です'),
                     maxLength: 50,
-                    initialValue: profileProvider.myProfile.nickname,
+                    initialValue: profileProvider.myProfile.name,
                   ),
                   TextFormField(
                     keyboardType: TextInputType.number,
@@ -91,12 +91,12 @@ class MyProfileScreen extends StatelessWidget {
                   for (String key in sexPicker.keys) ...{
                     RadioListTile(
                       value: key,
-                      groupValue: profileProvider.myProfile.sex,
+                      groupValue: profileProvider.myProfile.gender,
                       title: Text(sexPicker[key] ?? '性別不詳'),
-                      selected: profileProvider.myProfile.sex == key,
+                      selected: profileProvider.myProfile.gender == key,
                       onChanged: (value) {
                         if (profileProvider.myProfile.user == null) {
-                          profileProvider.myProfile.sex = value.toString();
+                          profileProvider.myProfile.gender = value.toString();
                           profileProvider.notifyListeners();
                         } else {
                           null;
@@ -126,17 +126,6 @@ class MyProfileScreen extends StatelessWidget {
                     maxLength: 20,
                     initialValue: profileProvider.myProfile.work,
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    onChanged: (value) =>
-                        profileProvider.myProfile.revenue = int.parse(value),
-                    decoration: const InputDecoration(
-                      labelText: '収入(万円)',
-                    ),
-                    maxLength: 4,
-                    initialValue: profileProvider.myProfile.revenue.toString(),
-                  ),
                   const GraduationPickerWidget(),
                   TextFormField(
                     onChanged: (value) =>
@@ -152,7 +141,7 @@ class MyProfileScreen extends StatelessWidget {
                     onChanged: (value) =>
                         profileProvider.myProfile.tweet = value,
                     decoration: const InputDecoration(
-                      labelText: 'つぶやき',
+                      labelText: 'ひとこと',
                     ),
                     maxLength: 10,
                     initialValue: profileProvider.myProfile.tweet,
