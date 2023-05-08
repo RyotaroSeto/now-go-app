@@ -64,7 +64,7 @@ class ProfileProvider with ChangeNotifier {
 
   /// 自己プロフィール取得
   // TODO:自己プロフィール取得実装
-  Future fetchMyProfile(String userId) async {
+  Future fetchMyProfile(int userId) async {
     _isSuccess = false;
     try {
       Dio dio = Dio();
@@ -131,7 +131,7 @@ class ProfileProvider with ChangeNotifier {
   }
 
   /// プロフィール新規作成
-  Future createMyProfile(String userId) async {
+  Future createMyProfile(int userId) async {
     _isSuccess = false;
     try {
       Dio dio = Dio();
@@ -184,7 +184,7 @@ class ProfileProvider with ChangeNotifier {
   }
 
   /// プロフィール更新
-  Future updateMyProfile(String userId) async {
+  Future updateMyProfile(int userId) async {
     _isSuccess = false;
     try {
       Dio dio = Dio();

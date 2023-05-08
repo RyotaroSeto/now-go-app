@@ -18,7 +18,7 @@ class LoginProvider with ChangeNotifier {
   final UserModel _userModel = UserModel();
   final Uri _uriHost = Uri.parse(dotenv.get('BACKEND_URL_HOST'));
 
-  String getUserId() {
+  int getUserId() {
     return _userModel.id;
   }
 
@@ -50,32 +50,23 @@ class LoginProvider with ChangeNotifier {
       PersistCookieJar cookieJar =
           PersistCookieJar(storage: FileStorage(appDocPath + "/.cookies/"));
       dio.interceptors.add(CookieManager(cookieJar));
-
       final responseJwt = await dio.post('/api/v1/session/login', data: {
         'email': email,
         'password': password,
       });
       cookieList = [
         ...cookieList,
-        Cookie('access_token', responseJwt.data['access'])
+        Cookie('access_token', responseJwt.data['access_token'])
       ];
       await cookieJar.saveFromResponse(_uriHost, cookieList);
 
-      // final responseUser = await dio.get(
-      //   '/authen/users/me',
-      //   options: Options(
-      //     headers: {
-      //       'Authorization': 'JWT ${cookieList.first.value}',
-      //     },
-      //   ),
-      // );
-      _userModel.id = "1";
-      _userModel.email = "test";
-      // _userModel.id = responseUser.data['id'];
-      // _userModel.email = responseUser.data['email'];
+      _userModel.id = responseJwt.data['user']['id'];
+      _userModel.email = responseJwt.data['user']['email'];
+      _userModel.username = responseJwt.data['user']['username'];
 
       _isSuccess = true;
     } catch (error) {
+      // TODO:バックエンドのエラーメッセージを出力する
       message = '正しいEメールとパスワードを入力してください';
       print(error);
       _isSuccess = false;
