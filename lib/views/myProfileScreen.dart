@@ -167,7 +167,7 @@ class MyProfileScreen extends StatelessWidget {
                       onPressed: () {
                         if (profileProvider.myProfile.user == null) {
                           profileProvider
-                              .createMyProfile(loginProvider.getUserId())
+                              .upsertMyProfile(loginProvider.getUserId())
                               .then((isSuccess) {
                             if (isSuccess) {
                               Navigator.pushReplacementNamed(
@@ -179,7 +179,7 @@ class MyProfileScreen extends StatelessWidget {
                           });
                         } else {
                           profileProvider
-                              .updateMyProfile(loginProvider.getUserId())
+                              .upsertMyProfile(loginProvider.getUserId())
                               .then((isSuccess) {
                             if (isSuccess) {
                               Navigator.pushReplacementNamed(

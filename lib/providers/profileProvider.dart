@@ -68,7 +68,6 @@ class ProfileProvider with ChangeNotifier {
     try {
       Dio dio = Dio();
       List<Cookie> cookieList = await _prepareDio(dio);
-      print('bearer ${cookieList.first.value}');
       final Response<dynamic> profile = await dio.get(
         '/api/v1/users?id=$userId',
         options: Options(
@@ -131,94 +130,46 @@ class ProfileProvider with ChangeNotifier {
     return _isSuccess;
   }
 
-  /// プロフィール新規作成
-  Future createMyProfile(int userId) async {
+  /// プロフィール新規作成or更新
+  Future upsertMyProfile(int userId) async {
     _isSuccess = false;
     try {
       Dio dio = Dio();
       List<Cookie> cookieList = await _prepareDio(dio);
 
-      FormData formData = FormData.fromMap({
-        "is_special": false,
-        "is_kyc": false,
-        "top_image": uploadTopImage != null
-            ? await MultipartFile.fromFile(
-                uploadTopImage!.path,
-                filename: uploadTopImage!.path.split('/').last,
-              )
-            : myProfile.topImage,
-        "name": myProfile.name,
-        "age": myProfile.age,
-        "gender": myProfile.gender,
-        "height": myProfile.height,
-        "location": myProfile.location,
-        "work": myProfile.work,
-        "graduation": myProfile.graduation,
-        "hobby": myProfile.hobby,
-        "passion": myProfile.passion,
-        "tweet": myProfile.tweet,
-        "introduction": myProfile.introduction,
-        "send_favorite": myProfile.sendFavorite,
-        "receive_favorite": myProfile.receiveFavorite,
-        "stock_favorite": myProfile.stockFavorite
-      });
-
-      // TODO:プロフィール作成実装
-      // final Response profile = await dio.post(
-      //   '/api/profiles/',
-      //   options: Options(
-      //     headers: {
-      //       'Authorization': 'JWT ${cookieList.first.value}',
-      //     },
-      //   ),
-      //   data: formData,
-      // );
-      // myProfile = _inputProfileModel(profile.data!);
-      _isSuccess = true;
-    } catch (error) {
-      print(error);
-      _isSuccess = false;
-    }
-    notifyListeners();
-    return _isSuccess;
-  }
-
-  /// プロフィール更新
-  Future updateMyProfile(int userId) async {
-    _isSuccess = false;
-    try {
-      Dio dio = Dio();
-      List<Cookie> cookieList = await _prepareDio(dio);
-
-      FormData formData = FormData.fromMap({
-        "top_image": uploadTopImage != null
-            ? await MultipartFile.fromFile(
-                uploadTopImage!.path,
-                filename: uploadTopImage!.path.split('/').last,
-              )
-            : myProfile.topImage,
-        "name": myProfile.name,
-        "height": myProfile.height,
-        "location": myProfile.location,
-        "work": myProfile.work,
-        "graduation": myProfile.graduation,
-        "hobby": myProfile.hobby,
-        "passion": myProfile.passion,
-        "tweet": myProfile.tweet,
-        "introduction": myProfile.introduction,
-      });
-
-      // TODO:プロフィール更新実装
-      // final Response profile = await dio.patch(
-      //   '/api/users/profile/$userId/',
-      //   options: Options(
-      //     headers: {
-      //       'Authorization': 'JWT ${cookieList.first.value}',
-      //     },
-      //   ),
-      //   data: formData,
-      // );
-      // myProfile = _inputProfileModel(profile.data!);
+      final Response profile = await dio.post('/api/v1/users/upsert',
+          options: Options(
+            headers: {
+              'Authorization': 'bearer ${cookieList.first.value}',
+            },
+          ),
+          data: {
+            //   "is_special": false,
+            //   "is_kyc": false,
+            //   "top_image": uploadTopImage != null
+            //       ? await MultipartFile.fromFile(
+            //           uploadTopImage!.path,
+            //           filename: uploadTopImage!.path.split('/').last,
+            //         )
+            //       : myProfile.topImage,
+            "user_id": 4,
+            "name": myProfile.name,
+            "age": myProfile.age,
+            "gender": myProfile.gender,
+            "height": myProfile.height,
+            "location": myProfile.location,
+            "work": myProfile.work,
+            "graduation": myProfile.graduation,
+            "hobby": myProfile.hobby,
+            "passion": myProfile.passion,
+            "tweet": myProfile.tweet,
+            "introduction": myProfile.introduction,
+            //   "send_favorite": myProfile.sendFavorite,
+            //   "receive_favorite": myProfile.receiveFavorite,
+            //   "stock_favorite": myProfile.stockFavorite
+          });
+      print(profile);
+      myProfile = _inputProfileModel(profile.data!);
       _isSuccess = true;
     } catch (error) {
       print(error);
@@ -369,7 +320,7 @@ class ProfileProvider with ChangeNotifier {
     //   '/api/dm-message/',
     //   options: Options(
     //     headers: {
-    //       'Authorization': 'JWT ${cookieList.first.value}',
+    //       'Authorization': 'bearer ${cookieList.first.value}',
     //     },
     //   ),
     // );
@@ -385,7 +336,7 @@ class ProfileProvider with ChangeNotifier {
     //   '/api/dm-inbox/',
     //   options: Options(
     //     headers: {
-    //       'Authorization': 'JWT ${cookieList.first.value}',
+    //       'Authorization': 'bearer ${cookieList.first.value}',
     //     },
     //   ),
     // );
@@ -403,7 +354,7 @@ class ProfileProvider with ChangeNotifier {
       //   '/api/dm-message/',
       //   options: Options(
       //     headers: {
-      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //       'Authorization': 'bearer ${cookieList.first.value}',
       //     },
       //   ),
       //   data: {
@@ -434,7 +385,7 @@ class ProfileProvider with ChangeNotifier {
       //   '/api/profiles',
       //   options: Options(
       //     headers: {
-      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //       'Authorization': 'bearer ${cookieList.first.value}',
       //     },
       //   ),
       // );
@@ -459,7 +410,7 @@ class ProfileProvider with ChangeNotifier {
       //   '/api/favorite/',
       //   options: Options(
       //     headers: {
-      //       'Authorization': 'JWT ${cookieList.first.value}',
+      //       'Authorization': 'bearer ${cookieList.first.value}',
       //     },
       //   ),
       // );
@@ -497,7 +448,7 @@ class ProfileProvider with ChangeNotifier {
     //   '/api/favorite/',
     //   options: Options(
     //     headers: {
-    //       'Authorization': 'JWT ${cookieList.first.value}',
+    //       'Authorization': 'bearer ${cookieList.first.value}',
     //     },
     //   ),
     //   data: {
@@ -515,7 +466,7 @@ class ProfileProvider with ChangeNotifier {
       '/api/favorite/$id/',
       options: Options(
         headers: {
-          'Authorization': 'JWT ${cookieList.first.value}',
+          'Authorization': 'bearer ${cookieList.first.value}',
         },
       ),
       data: {"approved": true},
@@ -525,10 +476,13 @@ class ProfileProvider with ChangeNotifier {
   /// 【プライベート】バックエンドから取得したプロフィールデータのProvider化
   ProfileModel _inputProfileModel(dynamic profile) {
     return ProfileModel(
-      user: profile!['user'],
-      isSpecial: profile!['is_special'],
-      isKyc: profile!['is_kyc'],
-      topImage: profile!['top_image'],
+      // user: profile!['user'],
+      user: "test", //ここが空でなければユーザーは作成されていると判断される
+      // isSpecial: profile!['is_special'],
+      // isKyc: profile!['is_kyc'],
+      // topImage: profile!['top_image'],
+      isSpecial: false,
+      isKyc: false,
       name: profile!['name'],
       createdAt: profile!['created_at'],
       updatedAt: profile!['updated_at'],
@@ -542,9 +496,9 @@ class ProfileProvider with ChangeNotifier {
       passion: profile!['passion'],
       tweet: profile!['tweet'],
       introduction: profile!['introduction'],
-      sendFavorite: profile!['send_favorite'],
-      receiveFavorite: profile!['receive_favorite'],
-      stockFavorite: profile!['stock_favorite'],
+      // sendFavorite: profile!['send_favorite'],
+      // receiveFavorite: profile!['receive_favorite'],
+      // stockFavorite: profile!['stock_favorite'],
       // profile!['fromLastLogin'],
     );
   }
