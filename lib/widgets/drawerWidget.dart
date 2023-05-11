@@ -27,35 +27,34 @@ class DrawerWidget extends StatelessWidget {
             title: const Text("相手を探す"),
             trailing: const Icon(Icons.arrow_forward),
             onTap: () async {
-              bool _isSuccess = await profileProvider.fetchProfileList();
-              if (_isSuccess) Navigator.pushNamed(context, '/looking');
+              bool isSuccess = await profileProvider.fetchProfileList();
+              if (isSuccess) Navigator.pushNamed(context, '/looking');
             },
           ),
-          ListTile(
-            title: const Text("いいねした人を確認する"),
-            trailing: const Icon(Icons.arrow_forward),
-            onTap: () async {
-              bool _isSuccess =
-                  await profileProvider.fetchProfileApproachingList();
-              if (_isSuccess) Navigator.pushNamed(context, '/favorite');
-            },
-          ),
-          ListTile(
-            title: const Text("いいねをくれた人を確認する"),
-            trailing: const Icon(Icons.arrow_forward),
-            onTap: () async {
-              bool _isSuccess =
-                  await profileProvider.fetchProfileApproachedList();
-              if (_isSuccess) Navigator.pushNamed(context, '/chance');
-            },
-          ),
+          // ListTile(
+          //   title: const Text("いいねした人を確認する"),
+          //   trailing: const Icon(Icons.arrow_forward),
+          //   onTap: () async {
+          //     bool isSuccess =
+          //         await profileProvider.fetchProfileApproachingList();
+          //     if (isSuccess) Navigator.pushNamed(context, '/favorite');
+          //   },
+          // ),
+          // ListTile(
+          //   title: const Text("いいねをくれた人を確認する"),
+          //   trailing: const Icon(Icons.arrow_forward),
+          //   onTap: () async {
+          //     bool isSuccess =
+          //         await profileProvider.fetchProfileApproachedList();
+          //     if (isSuccess) Navigator.pushNamed(context, '/chance');
+          //   },
+          // ),
           ListTile(
             title: const Text("メッセージをする"),
             trailing: const Icon(Icons.arrow_forward),
             onTap: () async {
-              bool _isSuccess =
-                  await profileProvider.fetchProfileMatchingList();
-              if (_isSuccess) Navigator.pushNamed(context, '/matching');
+              bool isSuccess = await profileProvider.fetchProfileMatchingList();
+              if (isSuccess) Navigator.pushNamed(context, '/matching');
             },
           ),
           ListTile(

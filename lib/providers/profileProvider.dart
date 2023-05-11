@@ -76,7 +76,6 @@ class ProfileProvider with ChangeNotifier {
           },
         ),
       );
-      print(profile);
       myProfile = _inputProfileModel(profile.data!);
       _isSuccess = true;
     } catch (error) {
@@ -183,12 +182,12 @@ class ProfileProvider with ChangeNotifier {
   Future fetchProfileList() async {
     _isSuccess = false;
     _isSuccess = await _fetchProfileAllList();
-    _isSuccess = await _fetchMatchingList();
-    profileList.removeWhere(
-        (profile) => _approachingUserIdList.contains(profile.user));
-    profileList
-        .removeWhere((profile) => _approachedUserIdList.contains(profile.user));
-    notifyListeners();
+    // _isSuccess = await _fetchMatchingList();
+    // profileList.removeWhere(
+    //     (profile) => _approachingUserIdList.contains(profile.user));
+    // profileList
+    //     .removeWhere((profile) => _approachedUserIdList.contains(profile.user));
+    // notifyListeners();
     return _isSuccess;
   }
 
@@ -378,18 +377,22 @@ class ProfileProvider with ChangeNotifier {
   Future _fetchProfileAllList() async {
     _isSuccess = false;
     profileList.clear();
+    String gender = myProfile.gender;
     try {
       Dio dio = Dio();
       List<Cookie> cookieList = await _prepareDio(dio);
-      // final Response profiles = await dio.get(
-      //   '/api/profiles',
-      //   options: Options(
-      //     headers: {
-      //       'Authorization': 'bearer ${cookieList.first.value}',
-      //     },
-      //   ),
-      // );
-      // profileList = _inputProfileModelList(profiles.data!);
+      final Response profiles = await dio.get(
+        '/api/v1/users/list?gender=$gender',
+        options: Options(
+          headers: {
+            'Authorization': 'bearer ${cookieList.first.value}',
+          },
+        ),
+      );
+      print("pppppppppppp");
+      print(profiles.data!);
+      print("pppppppppppp");
+      profileList = _inputProfileModelList(profiles.data!);
       _isSuccess = true;
     } catch (error) {
       print(error);
@@ -476,26 +479,25 @@ class ProfileProvider with ChangeNotifier {
   /// 【プライベート】バックエンドから取得したプロフィールデータのProvider化
   ProfileModel _inputProfileModel(dynamic profile) {
     return ProfileModel(
-      // user: profile!['user'],
-      user: "test", //ここが空でなければユーザーは作成されていると判断される
+      user: profile!['user_name'], //ここが空でなければユーザーは作成されていると判断される
       // isSpecial: profile!['is_special'],
       // isKyc: profile!['is_kyc'],
       // topImage: profile!['top_image'],
       isSpecial: false,
       isKyc: false,
-      name: profile!['name'],
-      createdAt: profile!['created_at'],
-      updatedAt: profile!['updated_at'],
-      age: profile!['age'],
-      gender: profile!['gender'],
-      height: profile!['height'],
-      location: profile!['location'],
-      work: profile!['work'],
-      graduation: profile!['graduation'],
-      hobby: profile!['hobby'],
-      passion: profile!['passion'],
-      tweet: profile!['tweet'],
-      introduction: profile!['introduction'],
+      name: profile!['user_detail']['name'],
+      createdAt: profile!['user_detail']['created_at'],
+      updatedAt: profile!['user_detail']['updated_at'],
+      age: profile!['user_detail']['age'],
+      gender: profile!['user_detail']['gender'],
+      height: profile!['user_detail']['height'],
+      location: profile!['user_detail']['location'],
+      work: profile!['user_detail']['work'],
+      graduation: profile!['user_detail']['graduation'],
+      hobby: profile!['user_detail']['hobby'],
+      passion: profile!['user_detail']['passion'],
+      tweet: profile!['user_detail']['tweet'],
+      introduction: profile!['user_detail']['introduction'],
       // sendFavorite: profile!['send_favorite'],
       // receiveFavorite: profile!['receive_favorite'],
       // stockFavorite: profile!['stock_favorite'],
